@@ -1,4 +1,4 @@
-// I. etap XXX OI.
+// I. stage of XXX POI.
 // ZBOŻE
 // 15/100
 
@@ -44,6 +44,11 @@ void dfs2(int v, int p, int l)
 
 signed main()
 {
+    #ifdef LOCAL
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    #endif
+    
     int n, k;
     std::cin >> n >> k;
     edge = std::vector<std::vector<std::pair<int,int>>>(n);

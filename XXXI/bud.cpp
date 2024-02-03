@@ -1,13 +1,15 @@
-// I. etap XXXI OI
-// BUDOWANIE LOTNISKA
+// I. stage of XXXI POI
+// BUDOWA LOTNISKA
 // 100/100
 
 #include <bits/stdc++.h>
 
 int main()
 {
+    #ifdef LOCAL
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
+    #endif
 
     int n, m;
     char a;

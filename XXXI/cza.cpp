@@ -1,4 +1,4 @@
-// I. etap XXXI OI
+// I. stage of XXXI POI
 // CZAT BBB
 // 50/100
 
@@ -19,15 +19,12 @@ signed main()
     freopen("output.txt", "w", stdout);
     #endif
 
-    // READ
     int n, k, a, b;
     std::string s;
     std::cin >> n >> k >> a >> b >> s;
     a = a-n-1;
     b = b-n-1;
 
-
-    // GET NUMBER OF OCCURENCIES OF EACH LETTER AFTER EACH SUBSTRING
     int hashsum = 0LL;
     int modifier = 1LL;
     for(int i = k-1LL; i >= 0LL; i--)
@@ -41,21 +38,18 @@ signed main()
     {
         occurencies[hashsum][s[i]]++;
 
-        // !POSSIBLE ISSUE!
         int subtract = (value(s[i-k])*modifier)%M;
         hashsum = (hashsum-subtract+M)%M;
         hashsum = (A*hashsum)%M;
         hashsum = (hashsum+value(s[i]))%M;
     }
 
-    // SET NEXT CHAR FOR EACH SUBSTRING
     std::map<int, char> nextChar;
     for(auto e : occurencies)
     {
         int h = e.first;
-        int c = 'a';
+        char c = 'a';
         int t = 0LL;
-        // !POSSIBLE ISSUE!
         for(auto f : e.second)
         {
             if(f.second>t)
@@ -66,9 +60,7 @@ signed main()
         }
         nextChar[h] = c;
     }
-    //occurencies.clear();
 
-    // CREATE SEQUENCE TABLE
     std::vector<char> toRemove(k);
     int removePointer = 0LL;
     for(int i = 0; i < k; i++)
@@ -78,7 +70,6 @@ signed main()
 
     int beginning = hashsum;
 
-    // !CAN REDUCE TIME AND INCREASE MEMORY USE!
     int count = 0LL;
     std::set<int> visited;
     while(!visited.count(hashsum))
@@ -95,7 +86,6 @@ signed main()
         hashsum = (A*hashsum)%M;
         hashsum = (hashsum+value(next))%M;
     }
-    //visited.clear();
 
     int loop = hashsum;
 
@@ -125,8 +115,6 @@ signed main()
         hashsum = (hashsum+value(next))%M;
     }
 
-    // GENERATE ANSWER
-    // !POSSIBLE OPTIMIZATION!
     int cycleLength = count-loopPosition;
     int position = a;
     if(position>=count)
