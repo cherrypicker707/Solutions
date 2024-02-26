@@ -1,5 +1,5 @@
 // Light Bulbs (Hard Version)
-// Codefores Round 916. (Div. 3)
+// Codefores Round 916 (Div. 3)
 // 1914 G2
 
 #include <bits/stdc++.h>
