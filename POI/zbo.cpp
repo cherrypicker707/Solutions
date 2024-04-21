@@ -6,7 +6,7 @@
 
 #define int long long
 
-std::vector<std::vector<std::pair<int,int>>> edge;
+std::vector<std::vector<std::pair<int, int>>> edge;
 std::vector<int> subtreeSize;
 std::vector<int> parent;
 std::vector<int> length;
@@ -18,9 +18,9 @@ std::vector<int> sPaths;
 int dfs1(int v, int p)
 {
     int result = 1;
-    for(auto e : edge[v])
+    for (auto e : edge[v])
     {
-        if(e.first!=p)
+        if (e.first != p)
         {
             result += dfs1(e.first, v);
         }
@@ -33,9 +33,9 @@ void dfs2(int v, int p, int l)
 {
     parent[v] = p;
     length[v] = l;
-    for(auto e : edge[v])
+    for (auto e : edge[v])
     {
-        if(e.first!=p)
+        if (e.first != p)
         {
             dfs2(e.first, v, e.second);
         }
@@ -44,19 +44,20 @@ void dfs2(int v, int p, int l)
 
 signed main()
 {
-    #ifdef LOCAL
+#ifdef LOCAL
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
-    #endif
-    
+#endif
+
     int n, k;
     std::cin >> n >> k;
-    edge = std::vector<std::vector<std::pair<int,int>>>(n);
-    for(int i = 0; i < n-1; i++)
+    edge = std::vector<std::vector<std::pair<int, int>>>(n);
+    for (int i = 0; i < n - 1; i++)
     {
         int a, b, c;
         std::cin >> a >> b >> c;
-        a--; b--;
+        a--;
+        b--;
         edge[a].push_back({b, c});
         edge[b].push_back({a, c});
     }
@@ -75,28 +76,28 @@ signed main()
     {
         root = bsta;
         bsta = -1;
-        value = n-subtreeSize[root];
-        for(auto e : edge[root])
+        value = n - subtreeSize[root];
+        for (auto e : edge[root])
         {
-            if(e.first!=parent[root])
+            if (e.first != parent[root])
             {
                 value = std::max(value, subtreeSize[e.first]);
-                if(bsta==-1||subtreeSize[e.first]>subtreeSize[bsta])
+                if (bsta == -1 || subtreeSize[e.first] > subtreeSize[bsta])
                 {
                     bsta = e.first;
                 }
             }
         }
-    }while(value>(n/2));
+    } while (value > (n / 2));
 
     dfs2(root, -1, 0);
 
     castles = std::vector<int>(n, 0);
     paths = std::vector<int>(n, 0);
-    
+
     int u = 0;
     int d = 0;
-    while(u>=0)
+    while (u >= 0)
     {
         castles[u]++;
         paths[u] += d;
@@ -105,7 +106,7 @@ signed main()
     }
 
     int answer = 0;
-    for(int i = 0; i < k; i++)
+    for (int i = 0; i < k; i++)
     {
         int v;
         std::cin >> v;
@@ -116,14 +117,14 @@ signed main()
         int previousCastles = 0;
         int previousLength = 0;
         int previousPaths = 0;
-        while(v>=0)
+        while (v >= 0)
         {
             int nCastles = castles[v];
-            nCastles -= previousCastles;  
+            nCastles -= previousCastles;
             int nPaths = paths[v];
-            nPaths -= (previousCastles*previousLength+previousPaths);
+            nPaths -= (previousCastles * previousLength + previousPaths);
 
-            answer += nCastles*distance+nPaths;
+            answer += nCastles * distance + nPaths;
 
             previousCastles = castles[v];
             previousPaths = paths[v];
@@ -135,6 +136,6 @@ signed main()
             v = parent[v];
         }
 
-        std::cout << 2*answer << '\n';
+        std::cout << 2 * answer << '\n';
     }
 }

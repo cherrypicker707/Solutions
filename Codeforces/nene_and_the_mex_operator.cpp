@@ -15,24 +15,24 @@ void operate(int l, int r)
     answer.push_back({l, r});
 
     std::set<int> e;
-    for(int i = l; i <= r; i++)
+    for (int i = l; i <= r; i++)
         e.insert(a[i]);
 
     int mex = 0;
-    while(e.count(mex))
+    while (e.count(mex))
         mex++;
 
-    for(int i = l; i <= r; i++)
+    for (int i = l; i <= r; i++)
         a[i] = mex;
 }
 
 void fix(int l, int r)
 {
-    if(l==r)
+    if (l == r)
     {
-        if(a[l]==0)
+        if (a[l] == 0)
             operate(l, r);
-        else if(a[l]>1)
+        else if (a[l] > 1)
         {
             operate(l, r);
             operate(l, r);
@@ -41,10 +41,10 @@ void fix(int l, int r)
         return;
     }
 
-    for(int i = r-1; i >= l; i--)
+    for (int i = r - 1; i >= l; i--)
         fix(l, i);
-    
-    if(a[r])
+
+    if (a[r])
         operate(r, r);
     operate(l, r);
 }
@@ -91,21 +91,21 @@ signed main()
     int k = n;
     while (k > 0)
     {
-        if(dpS[k]==-1)
+        if (dpS[k] == -1)
         {
             k--;
             continue;
         }
 
         segment.push_back({dpS[k], k});
-        k = dpS[k]-1;
+        k = dpS[k] - 1;
     }
 
-    for(auto e : segment)
+    for (auto e : segment)
         fix(e.first, e.second);
 
     std::cout << dp[n] << ' ' << answer.size() << '\n';
-    for(auto e : answer)
+    for (auto e : answer)
     {
         std::cout << e.first << ' ' << e.second << '\n';
     }

@@ -1,8 +1,9 @@
-// Sasha and the Beautiful Array
-// Codefores Round 926 (Div. 2)
-// 1929 A
+// Nene and the Card Game
+// Codeforces Round 939 (Div. 2)
+// 1956 B
 
 #include <bits/stdc++.h>
+
 #define int long long
 
 signed main()
@@ -20,15 +21,19 @@ signed main()
     {
         int n;
         std::cin >> n;
-        int min = LLONG_MAX;
-        int max = LLONG_MIN;
+        std::vector<bool> a(n, false);
+        int score = 0;
         for (int i = 0; i < n; i++)
         {
-            int a;
-            std::cin >> a;
-            min = std::min(a, min);
-            max = std::max(a, max);
+            int e;
+            std::cin >> e;
+            e--;
+            if (a[e])
+                score++;
+            else
+                a[e] = true;
         }
-        std::cout << (max - min) << '\n';
+
+        std::cout << score << '\n';
     }
 }

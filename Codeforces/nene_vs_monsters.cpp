@@ -10,14 +10,14 @@ std::vector<int> a;
 
 void simulate()
 {
-    for(int i = 0; i < n; i++)
-        a[(i+1)%n] = std::max(0LL, a[(i+1)%n]-a[i]);
+    for (int i = 0; i < n; i++)
+        a[(i + 1) % n] = std::max(0LL, a[(i + 1) % n] - a[i]);
 }
 
 bool all()
 {
-    for(int i = 0; i < n; i++)
-        if(a[i]==0)
+    for (int i = 0; i < n; i++)
+        if (a[i] == 0)
             return false;
 
     return true;
@@ -27,14 +27,14 @@ bool moreThanTwo()
 {
     int count = 0;
 
-    for(int i = 0; i < n+3; i++)
+    for (int i = 0; i < n + 3; i++)
     {
-        if(a[i%n]>0)
+        if (a[i % n] > 0)
             count++;
         else
-            count=0;
-        
-        if(count>2)
+            count = 0;
+
+        if (count > 2)
             return true;
     }
 
@@ -45,43 +45,43 @@ signed main()
 {
     std::ios_base::sync_with_stdio(0);
     std::cin.tie();
-    #ifdef LOCAL
+#ifdef LOCAL
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
-    #endif
+#endif
 
     int t;
     std::cin >> t;
-    while(t--)
+    while (t--)
     {
         std::cin >> n;
         a = std::vector<int>(n);
-        for(int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++)
             std::cin >> a[i];
-        
+
         std::vector<int> answer;
 
-        if(n<4)
+        if (n < 4)
         {
-            while(all())
+            while (all())
                 simulate();
-            
-            for(int i = 0; i < n; i++)
-                if(a[i]>0&&a[(i-1+n)%n]==0)
-                    answer.push_back(i+1);
+
+            for (int i = 0; i < n; i++)
+                if (a[i] > 0 && a[(i - 1 + n) % n] == 0)
+                    answer.push_back(i + 1);
         }
         else
         {
-            while(moreThanTwo())
+            while (moreThanTwo())
                 simulate();
-            
-            for(int i = 0; i < n; i++)
-                if(a[i]>0&&a[(i-1+n)%n]==0)
-                    answer.push_back(i+1);
+
+            for (int i = 0; i < n; i++)
+                if (a[i] > 0 && a[(i - 1 + n) % n] == 0)
+                    answer.push_back(i + 1);
         }
 
         std::cout << answer.size() << '\n';
-        for(int e : answer)
+        for (int e : answer)
             std::cout << e << ' ';
         std::cout << '\n';
     }
